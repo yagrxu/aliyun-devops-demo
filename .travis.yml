@@ -1,0 +1,4 @@
+os: osx
+before_install:
+  - brew install terraform
+  - brew install aliyun-cli
