@@ -1,3 +1,4 @@
 local.bash
 **/.terraform/
+terraform.tfstate
 
