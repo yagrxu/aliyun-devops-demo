@@ -10,5 +10,3 @@ deploy:
     branch: master
 after_deploy:
   - ./scripts/destroy.sh
-after_failure: skip
-after_success: skip
