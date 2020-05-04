@@ -9,9 +9,6 @@ deploy:
   on:
     branch: master
 after_deploy:
-  provider: script
-  script: sh scripts/destroy.sh
-  on:
-    branch: master
+  - ./scripts/destroy.sh
 after_failure: skip
 after_success: skip
