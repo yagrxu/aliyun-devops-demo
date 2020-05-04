@@ -5,6 +5,13 @@ before_install:
   - brew install aliyun-cli
 deploy:
   provider: script
-  script: sh scripts/dev.sh
+  script: sh scripts/deploy.sh
   on:
     branch: master
+after_deploy:
+  provider: script
+  script: sh scripts/destroy.sh
+  on:
+    branch: master
+after_failure: skip
+after_success: skip
