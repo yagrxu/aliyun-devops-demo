@@ -1,4 +1,10 @@
 os: osx
+language: generic
 before_install:
   - brew install terraform
   - brew install aliyun-cli
+deploy:
+  provider: script
+  script: scripts/dev.sh
+  on:
+    branch: master
