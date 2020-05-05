@@ -1,6 +1,6 @@
 # Aliyun DevOps Automation Demo
 
-[![Build Status](https://travis-ci.com/yagrxu/aliyun-devops-demo.svg?branch=master)](https://travis-ci.com/yagrxu/aliyun-devops-demo)
+[![Build Status](https://travis-ci.com/yagrxu/aliyun-devops-demo.svg?token=ky8D33r1sooBTDsLx6aG&branch=master)](https://travis-ci.com/yagrxu/aliyun-devops-demo)
 
 ## Prerequisites (Manual Steps)
 
