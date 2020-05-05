@@ -30,3 +30,10 @@ module managed_k8s {
   worker_vswitch_ids = module.dev_vpc.worker_vswitch_ids
   worker_types       = ["ecs.g6.large"]
 }
+
+module database {
+  source             = "../modules/rds"
+  vswitch_id         = module.dev_vpc.worker_vswitch_ids[0]
+  security_ips       = ["10.0.0.0/8"]
+  version_ids        = ["2020.05.05", "2020.05.05", "2020.05.05"]
+}

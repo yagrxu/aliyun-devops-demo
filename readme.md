@@ -9,6 +9,7 @@
     - ECS (Elastic Compute Service)
     - Auto Scaling
     - ARMS (Application Real-time Monitoring Service)
+    - KMS (Key Management Service)
     - Log Service
     - Domain Service
     - ACK (Managed Kubernetes)
