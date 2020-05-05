@@ -22,7 +22,6 @@
 
 The work flow is already described programmatically in the testing code.
 
-
 ## Pipeline
 
 The pipeline is integrated with travis ci kostenlose edition
