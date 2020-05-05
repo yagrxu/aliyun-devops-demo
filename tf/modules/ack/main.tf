@@ -36,7 +36,7 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
   service_cidr    = "192.168.0.0/16"
 
   slb_internet_enabled  = true
-  new_nat_gateway       = false
+  new_nat_gateway       = true
   install_cloud_monitor = true
 
   worker_vswitch_ids    = var.worker_vswitch_ids
