@@ -6,11 +6,12 @@ provider "alicloud" {
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"
-    prefix   = "aliyun-devops-demo-bootstrap"
+    prefix   = "aliyun-devops-demo-account-setup"
     region   = "eu-central-1"
   }
 }
-module "bootstrap" {
-  source            = "../modules/bootstrap"
+
+module "account_user" {
+  source            = "../modules/ram"
   account_id        = "5326847730248958"
 }

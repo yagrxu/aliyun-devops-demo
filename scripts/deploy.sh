@@ -1,5 +1,5 @@
-# bootstrap
-cd ./tf/bootstrap
+# uaa_setup
+cd ./tf/uaa_setup
 terraform init
 terraform validate
 terraform plan
@@ -12,8 +12,9 @@ terraform validate
 terraform plan
 terraform apply --auto-approve
 
-# destroy
+# dev
 terraform destroy --auto-approve
 
-# dev
+cd ../uaa_setup
+# uaa_setup
 terraform destroy --auto-approve

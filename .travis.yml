@@ -9,4 +9,7 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - ./scripts/destroy.sh
+  provider: script
+  script: sh scripts/deploy.sh
+  on:
+    branch: master

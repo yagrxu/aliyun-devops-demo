@@ -3,14 +3,7 @@ variable "product" {
   type        = string
 }
 
-variable "environment" {
-  description = "Environment type"
-  type        = string
-}
-
-variable "region" {
-  description = "Region for resources"
-  type        = string
+variable "env" {
 }
 
 variable "availability_zones" {
@@ -20,11 +13,10 @@ variable "availability_zones" {
 }
 
 variable "vpc_cidr" {
-  description = "Main CIDR block for VPC"
-  type        = string
+
 }
 
-variable "private_subnets" {
+variable "worker_subnets" {
   description = "List of private subnets in CIDR format"
   type        = list(string)
   default     = []

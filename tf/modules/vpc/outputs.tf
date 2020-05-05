@@ -6,12 +6,12 @@ output "vpc_cidr" {
   value = alicloud_vpc.vpc.cidr_block
 }
 
-output "private_vswitch_ids" {
-  value = alicloud_vswitch.private.*.id
+output "worker_vswitch_ids" {
+  value = alicloud_vswitch.worker_vswitch.*.id
 }
 
 output "pod_vswitch_ids" {
-  value = alicloud_vswitch.pods.*.id
+  value = alicloud_vswitch.pod_vswitch.*.id
 }
 
 output "vswitch_ids" {
