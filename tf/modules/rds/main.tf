@@ -16,6 +16,10 @@ resource "alicloud_db_instance" "db_instance" {
     name  = "default_time_zone"
     value = "Europe/Amsterdam"
   }
+  parameters {
+    name  = "force_restart"
+    value = "true"
+  }
 }
 
 resource "alicloud_db_database" "db_schema" {
