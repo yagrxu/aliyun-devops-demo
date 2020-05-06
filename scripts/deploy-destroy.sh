@@ -1,21 +1,21 @@
 # uaa_setup
 mkdir ~/.kube/
-cd ./tf/uaa_setup
+cd ./tf/account_setup
 terraform init
 terraform validate
 terraform plan -detailed-exitcode
-terraform apply --auto-approve | tee /dev/tty | ( ! grep "Error applying plan" )
+terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
 
 # dev
 cd ../dev
 terraform init
 terraform validate
 terraform plan -detailed-exitcode
-terraform apply --auto-approve | tee /dev/tty | ( ! grep "Error applying plan" )
+terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
 
 # dev
 terraform destroy --auto-approve
 
-cd ../uaa_setup
-# uaa_setup
+cd ../account_setup
+# account_setup
 terraform destroy --auto-approve

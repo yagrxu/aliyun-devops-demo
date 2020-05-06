@@ -5,8 +5,8 @@ terraform validate
 terraform plan
 terraform destroy --auto-approve
 
-# destroy uaa_setup
-cd ../uaa_setup
+# destroy account_setup
+cd ../account_setup
 terraform init
 terraform validate
 terraform plan

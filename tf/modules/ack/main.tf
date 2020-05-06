@@ -30,7 +30,7 @@ resource "random_password" "ssh" {
 
 resource "alicloud_cs_managed_kubernetes" "k8s" {
   name_prefix = "demo"
-  version     = "1.16.6-aliyun.1"
+  // version     = "1.16.6-aliyun.1"
 
   pod_vswitch_ids = var.pod_vswitch_ids
   service_cidr    = "192.168.0.0/16"

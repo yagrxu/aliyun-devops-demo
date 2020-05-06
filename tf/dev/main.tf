@@ -28,7 +28,7 @@ module managed_k8s {
   source             = "../modules/ack"
   pod_vswitch_ids    = module.dev_vpc.pod_vswitch_ids
   worker_vswitch_ids = module.dev_vpc.worker_vswitch_ids
-  worker_types       = ["ecs.g6.large"]
+  worker_types       = ["ecs.g6.xlarge"]
 }
 
 module database {

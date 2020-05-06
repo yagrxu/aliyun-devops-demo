@@ -5,7 +5,8 @@ before_install:
   - brew install aliyun-cli
 deploy:
   provider: script
-  script: sh scripts/deploy.sh
+  script: sh scripts/deploy-destroy.sh
   on:
     branch: master
+# in case of deploy/destroy failed, we run it again hoping to fix the resource leftover
 after_deploy: sh scripts/clean.sh

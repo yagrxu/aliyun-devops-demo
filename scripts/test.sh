@@ -1,5 +1,5 @@
-# uaa_setup
-cd ./tf/uaa_setup
+# account_setup
+cd ./tf/account_setup
 terraform init
 terraform validate
 terraform plan
@@ -11,6 +11,6 @@ terraform init
 terraform validate
 terraform plan
 
-cd ../uaa_setup
-# uaa_setup
+cd ../account_setup
+# account_setup
 terraform destroy --auto-approve

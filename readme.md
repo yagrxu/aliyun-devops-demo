@@ -16,12 +16,17 @@
     - ACR (Managed Container Registry)
 
 3. You need to prepare a valid OSS Bucket for storing the terraform state optionally with a OTS table for locking ( One can achieve this by using terraform or aliyun cli but it is not in our demo scope)
+4. You need to prepare a valid RAM role in your account or in each of hierachical resource management accounts. In the demo, I use terraform code to simulate a RAM role creation during the account setup step.
 
-4. You need to prepare a RAM user with proper permission
+5. You need to prepare a RAM user with proper permission
 
 ## Workflow
 
-The work flow is already described programmatically in the testing code.
+1. Accounts Setup
+
+In this step, I only prepared a ram role which can be used for terraform automation in the dev setup. However account setup means much more than just RAM (Resource Access Management)
+2. Managed Services Setup
+3. Solution Services Setup
 
 ## Pipeline
 

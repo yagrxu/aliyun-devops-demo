@@ -12,13 +12,10 @@ resource "alicloud_db_instance" "db_instance" {
   instance_name       = "demo"
   security_ips        = var.security_ips
   vswitch_id          = var.vswitch_id
+  force_restart       = true
   parameters {
     name  = "default_time_zone"
     value = "Europe/Amsterdam"
-  }
-  parameters {
-    name  = "force_restart"
-    value = "true"
   }
 }
 
@@ -49,6 +46,7 @@ resource "alicloud_db_account_privilege" "privilege" {
 resource "random_password" "secret_data" {
   count  = length(local.db_usernames)
   length = 8
+  special = false
 }
 
 resource "alicloud_kms_secret" "secret" {
