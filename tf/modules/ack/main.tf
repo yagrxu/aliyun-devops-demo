@@ -36,7 +36,7 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
   service_cidr    = "192.168.0.0/16"
 
   slb_internet_enabled  = true
-  new_nat_gateway       = false
+  new_nat_gateway       = true
   install_cloud_monitor = true
 
   worker_vswitch_ids    = var.worker_vswitch_ids
@@ -84,5 +84,15 @@ resource "alicloud_security_group_rule" "allow_ssh_via_vpn" {
   policy            = "accept"
   ip_protocol       = "tcp"
   port_range        = "22/22"
+  cidr_ip           = "0.0.0.0/0"
+}
+
+resource "alicloud_security_group_rule" "allow_rds_access" {
+  security_group_id = alicloud_cs_managed_kubernetes.k8s.security_group_id
+  type              = "ingress"
+  nic_type          = "intranet"
+  policy            = "accept"
+  ip_protocol       = "tcp"
+  port_range        = "3306/3306"
   cidr_ip           = "0.0.0.0/0"
 }
