@@ -11,7 +11,7 @@ terraform {
   }
 }
 
-module "account_user" {
+module "ram" {
   source            = "../modules/ram"
   account_id        = "5326847730248958"
 }
