@@ -5,7 +5,12 @@ provider "alicloud" {
     role_arn = "acs:ram::5326847730248958:role/TechnicalRole"
   }
 }
-
+provider "helm" {
+  version    = "~> 1.1.1"
+  kubernetes {
+    config_path = "~/.kube/config-demo"
+  }
+}
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"

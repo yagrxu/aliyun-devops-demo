@@ -8,6 +8,7 @@ provider "kubernetes" {
 resource "kubernetes_deployment" "alicloud_external_dns" {
   metadata {
     name = "external-dns"
+    namespace = "kube-system"
     annotations = {
       "ram.aliyuncs.com/role" = var.dns_ram_role
     }
@@ -31,6 +32,7 @@ resource "kubernetes_deployment" "alicloud_external_dns" {
       }
 
       spec {
+        automount_service_account_token = true
         container {
           image = "registry.opensource.zalan.do/teapot/external-dns:latest"
           name  = "external-dns"

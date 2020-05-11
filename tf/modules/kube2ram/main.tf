@@ -3,6 +3,7 @@ resource "kubernetes_service_account" "kube2ram_service_account" {
     name = "kube2ram"
     namespace = "kube-system"
   }
+  automount_service_account_token = true
 }
 
 resource "kubernetes_cluster_role" "kube2ram_cluster_role" {
@@ -57,6 +58,8 @@ resource "kubernetes_daemonset" "kube2ram" {
       }
 
       spec {
+        automount_service_account_token = true
+        service_account_name = kubernetes_service_account.kube2ram_service_account.metadata[0].name
         container {
           image = "registry.cn-hangzhou.aliyuncs.com/acs/kube2ram:1.0.0"
           name  = "kube2ram"
@@ -95,7 +98,6 @@ resource "kubernetes_daemonset" "kube2ram" {
           }
         }
         host_network = true
-        service_account_name = "kube2ram"
       }
     }
   }

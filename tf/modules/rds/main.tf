@@ -40,7 +40,7 @@ resource "alicloud_db_account_privilege" "privilege" {
   account_name = local.db_usernames[count.index]
   privilege    = local.db_userprivileges[count.index]
   db_names     = [local.db_names[count.index]]
-  depends_on   = [alicloud_db_account.db_account]
+  depends_on   = [alicloud_db_account.db_account, alicloud_db_database.db_schema]
 }
 
 resource "random_password" "secret_data" {
