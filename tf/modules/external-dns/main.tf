@@ -85,12 +85,13 @@ resource "kubernetes_deployment" "alicloud_external_dns" {
             "--source=service",
             "--source=ingress",
             //"--dry-run",
-            "--domain-filter=${var.domain_name}", # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones,
+            //"--domain-filter=${var.domain_name}", # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones,
             "--provider=alibabacloud",
-            //"--policy=upsert-only # would prevent ExternalDNS from deleting any records, omit to enable full synchronization",
+            "--policy=sync", # would prevent ExternalDNS from deleting any records, omit to enable full synchronization",
             "--alibaba-cloud-zone-type=public",
             "--registry=txt",
             "--txt-owner-id=my-identifier",
+            "--alibaba-cloud-config-file="
           ]
           volume_mount {
             name       = "hostpath"
