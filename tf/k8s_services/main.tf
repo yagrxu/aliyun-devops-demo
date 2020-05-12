@@ -35,8 +35,9 @@ module "kube2ram" {
 
 module "external-dns" {
   source         = "../modules/external-dns"
-  dns_ram_role   = "DnsRole"
+  dns_ram_role   = "acs:ram::${data.alicloud_account.current.id}:role/dnsrole"
   domain_name    = "yagr.xyz"
+  account_id     = data.alicloud_account.current.id
 }
 
 data "alicloud_cs_managed_kubernetes_clusters" "k8s_clusters" {

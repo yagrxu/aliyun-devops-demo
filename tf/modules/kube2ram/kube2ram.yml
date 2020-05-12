@@ -55,6 +55,7 @@ spec:
           - "--host-interface=cali+"
           - "--verbose"
           - "--debug"
+          - "--auto-discover-default-role"
         env:
         - name: HOST_IP
           valueFrom:

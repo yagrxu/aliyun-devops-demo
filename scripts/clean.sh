@@ -17,11 +17,11 @@ cd ../dev
 terraform init
 terraform validate
 terraform plan
-terraform destroy --auto-approve
+terraform destroy --auto-approve | tee /dev/tty | ( ! grep "Error:" )
 
 # destroy account_setup
 cd ../account_setup
 terraform init
 terraform validate
 terraform plan
-terraform destroy --auto-approve
+terraform destroy --auto-approve | tee /dev/tty | ( ! grep "Error:" )

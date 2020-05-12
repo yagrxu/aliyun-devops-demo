@@ -56,5 +56,8 @@
     - External-dns
     - External-secrets
 
-## Conceptual Design
+## Limitations
 
+1. Currently the automation works only when you have only 1 cluster per account.
+
+2. This highly relies on a [feature](https://github.com/terraform-providers/terraform-provider-alicloud/issues/2326) to be implemented.

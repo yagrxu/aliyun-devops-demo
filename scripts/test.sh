@@ -15,7 +15,6 @@ terraform plan
 cd ../k8s_services
 terraform init
 terraform validate
-terraform plan
 
 cd ../account_setup
 # account_setup
