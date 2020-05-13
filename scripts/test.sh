@@ -11,6 +11,11 @@ terraform init
 terraform validate
 terraform plan
 
+# k8s_services_native
+cd ../k8s_services_native
+terraform init
+terraform validate
+
 # k8s_services
 cd ../k8s_services
 terraform init

@@ -23,14 +23,19 @@ data "alicloud_account" "current" {
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"
-    prefix   = "aliyun-devops-demo-k8s-services"
+    prefix   = "aliyun-devops-demo-k8s-services-native"
     region   = "eu-central-1"
   }
 }
 
-module "external-dns" {
-  source         = "../modules/external-dns"
-  dns_ram_role   = "acs:ram::${data.alicloud_account.current.id}:role/dnsrole"
-  domain_name    = "yagr.xyz"
-  account_id     = data.alicloud_account.current.id
+module "kube2ram" {
+  source         = "../modules/kube2ram"
+  host_interface = "cali+"
+}
+
+module managed_prometheus {
+  source             = "../modules/arms"
+  uid                = data.alicloud_account.current.id
+  region_id          = var.region
+  cluster_id         = var.cluster_id
 }

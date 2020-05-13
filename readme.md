@@ -47,17 +47,22 @@
     - KMS
     - ...
 
-3. Solution Services Setup
+3. K8s AliCloud Native Services Setup
 
     - Kube2Ram
-    - Ingress
-    - Monitoring
+    - Ingress Controller
+    - Managed Prometheus
     - Logging
-    - External-dns
-    - External-secrets
+
+4. Solution Supported Service Setup
+
+    - external-dns
+    - external-secret
 
 ## Limitations
 
 1. Currently the automation works only when you have only 1 cluster per account.
 
 2. This highly relies on a [feature](https://github.com/terraform-providers/terraform-provider-alicloud/issues/2326) to be implemented.
+
+
