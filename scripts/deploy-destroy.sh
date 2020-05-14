@@ -14,7 +14,7 @@ terraform plan -detailed-exitcode
 terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
 
 # update config
-export TF_VAR_cluster_id=`tf output cluster_id`
+export TF_VAR_cluster_id=`terraform output cluster_id`
 cd ../../scripts
 python3 ./update_config.py
 
