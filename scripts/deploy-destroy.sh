@@ -26,7 +26,7 @@ terraform plan -detailed-exitcode
 terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
 
 # destroy k8s_services
-cd ../tf/k8s_services
+cd ../k8s_services
 terraform init
 terraform validate
 terraform plan -detailed-exitcode

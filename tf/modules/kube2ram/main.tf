@@ -103,33 +103,3 @@ resource "kubernetes_daemonset" "kube2ram" {
     }
   }
 }
-
-data "alicloud_ram_roles" "roles_ack_cluster" {
-  name_regex  = "KubernetesWorkerRole.*"
-}
-
-resource "alicloud_ram_policy" "kube2ram_sts_policy" {
-  name        = "Kube2RamStsPolicy"
-  description = "allow kube2ram assume correct role"
-  document    = <<EOF
-    {
-      "Version": "1",
-      "Statement": [
-        {
-            "Action": [
-              "sts:AssumeRole"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-      ]
-    }
-    EOF
-}
-
-resource "alicloud_ram_role_policy_attachment" "attach" {
-  policy_name = alicloud_ram_policy.kube2ram_sts_policy.name
-  policy_type = alicloud_ram_policy.kube2ram_sts_policy.type
-  role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
-  depends_on = [alicloud_ram_policy.kube2ram_sts_policy]
-}

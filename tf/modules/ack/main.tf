@@ -96,3 +96,30 @@ resource "alicloud_security_group_rule" "allow_rds_access" {
   port_range        = "3306/3306"
   cidr_ip           = "0.0.0.0/0"
 }
+
+
+data "alicloud_ram_roles" "roles_ack_cluster" {
+  name_regex  = "KubernetesWorkerRole.*"
+  depends_on = [alicloud_cs_managed_kubernetes.k8s]
+}
+
+data "alicloud_ram_policies" "kube2ram_policy" {
+  name_regex = "Kube2RamStsPolicy"
+}
+
+resource "alicloud_ram_role_policy_attachment" "attach" {
+  policy_name = data.alicloud_ram_policies.kube2ram_policy.policies[0].name
+  policy_type = data.alicloud_ram_policies.kube2ram_policy.policies[0].type
+  role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
+}
+
+
+data "alicloud_ram_policies" "external_secret_policy" {
+  name_regex = "ExternalSecretPolicy"
+}
+
+resource "alicloud_ram_role_policy_attachment" "external_secret_policy_attach" {
+  policy_name = data.alicloud_ram_policies.external_secret_policy.policies[0].name
+  policy_type = data.alicloud_ram_policies.external_secret_policy.policies[0].type
+  role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
+}

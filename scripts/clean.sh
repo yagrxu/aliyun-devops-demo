@@ -5,7 +5,7 @@ terraform validate
 terraform plan -detailed-exitcode
 terraform apply --auto-approve
 
-# destroy dev
+# destroy k8s_services
 cd ../k8s_services
 terraform init
 terraform validate
