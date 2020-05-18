@@ -7,3 +7,6 @@ variable worker_types {
 variable pod_vswitch_ids {
   type        = list(string)
 }
+variable account_id {
+  
+}

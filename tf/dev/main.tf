@@ -18,7 +18,8 @@ terraform {
     region   = "eu-central-1"
   }
 }
-
+data "alicloud_account" "current" {
+}
 module dev_vpc {
   source             = "../modules/vpc"
   vpc_cidr           = "10.0.0.0/8"
@@ -34,6 +35,7 @@ module managed_k8s {
   pod_vswitch_ids    = module.dev_vpc.pod_vswitch_ids
   worker_vswitch_ids = module.dev_vpc.worker_vswitch_ids
   worker_types       = ["ecs.g6.xlarge"]
+  account_id         = data.alicloud_account.current.id
 }
 
 module database {

@@ -111,6 +111,33 @@ resource "alicloud_ram_role_policy_attachment" "attach" {
   policy_name = data.alicloud_ram_policies.kube2ram_policy.policies[0].name
   policy_type = data.alicloud_ram_policies.kube2ram_policy.policies[0].type
   role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
+  provisioner "local-exec" {
+    command = <<EOF
+    aliyun ram UpdateRole --RoleName ${data.alicloud_ram_roles.roles_ack_cluster.roles[0].name} --NewAssumeRolePolicyDocument '{
+        "Statement": [
+            {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "ecs.aliyuncs.com"
+                    ]
+                }
+            },
+            {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                    "RAM": [
+                        "acs:ram::${var.account_id}:root"
+                    ]
+                }
+            }
+        ],
+        "Version": "1"
+    }'
+    EOF
+  }
 }
 
 
