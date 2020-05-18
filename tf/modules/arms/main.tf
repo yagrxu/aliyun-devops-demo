@@ -28,6 +28,11 @@ resource "helm_release" "arms" {
     name  = "controller.region_id"
     value = var.region_id
   }
+  # bug
+  set {
+    name  = "controller.operatorImage"
+    value = "registry-vpc.eu-central-1.aliyuncs.com/arms-docker-repo/arms-prom-operator:v0.1"
+  }
 
   depends_on = [kubernetes_namespace.arms_prom]
 }

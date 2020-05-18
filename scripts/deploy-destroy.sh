@@ -18,25 +18,14 @@ export TF_VAR_cluster_id=`terraform output cluster_id`
 cd ../../scripts
 python3 ./update_config.py
 
-# destroy k8s_services-native
-cd ../tf/k8s_services_native
+# apply k8s services
+cd ../tf/kubernetes_services
 terraform init
 terraform validate
 terraform plan -detailed-exitcode
 terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
 
-# destroy k8s_services
-cd ../k8s_services
-terraform init
-terraform validate
-terraform plan -detailed-exitcode
-terraform apply --auto-approve | tee /dev/tty | ( ! grep "[ERROR]" )
-
-# k8s_services
-terraform destroy --auto-approve
-
-# k8s_services_native
-cd ../k8s_services_native
+# k8s services
 terraform destroy --auto-approve
 
 # dev
