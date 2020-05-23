@@ -42,7 +42,7 @@
 
 2. Managed Services Setup
 
-    - K8s and his friends (VPC, VSwitch, Security Group, Log Service)
+    - K8s and its friends (VPC, VSwitch, Security Group, Log Service)
     - Database (schema, accounts, whitelists)
     - KMS
     - ...
@@ -65,4 +65,15 @@
 
 2. This highly relies on a [feature](https://github.com/terraform-providers/terraform-provider-alicloud/issues/2326) to be implemented.
 
+## TODO list
+
+1. Alibaba Cloud Container Registry automation - waiting for ACR EE in Frankfurt
+
+
 ## Workarounds
+
+## Extras
+
+### How to create helm chart
+
+[How to guide](https://helm.sh/docs/chart_template_guide/getting_started/)

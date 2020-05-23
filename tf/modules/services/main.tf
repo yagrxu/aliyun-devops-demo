@@ -216,3 +216,4 @@ resource "kubernetes_deployment" "alicloud_external_dns" {
   }
   depends_on = [kubernetes_daemonset.kube2ram]
 }
+

@@ -5,8 +5,8 @@ terraform validate
 terraform plan
 terraform apply --auto-approve
 
-# dev
-cd ../dev
+# cloud_services
+cd ../cloud_services
 terraform init
 terraform validate
 terraform plan

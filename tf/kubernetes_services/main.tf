@@ -28,7 +28,7 @@ terraform {
   }
 }
 
-module "kube2ram" {
+module "kubernetes_services" {
   source         = "../modules/services"
   host_interface = "cali+"
   dns_ram_role   = "acs:ram::${data.alicloud_account.current.id}:role/dnsrole"
@@ -36,9 +36,18 @@ module "kube2ram" {
   account_id     = data.alicloud_account.current.id
 }
 
-module managed_prometheus {
+module arms {
   source             = "../modules/arms"
   uid                = data.alicloud_account.current.id
   region_id          = var.region
   cluster_id         = var.cluster_id
+}
+
+module secret-manager {
+  source             = "../modules/secret"
+  region             = var.region
+}
+
+module cert-manager {
+  source             = "../modules/cert"
 }

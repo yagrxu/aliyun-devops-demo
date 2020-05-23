@@ -12,8 +12,8 @@ terraform validate
 terraform plan
 terraform destroy --auto-approve
 
-# destroy dev
-cd ../dev
+# destroy cloud_services
+cd ../cloud_services
 terraform init
 terraform validate
 terraform plan

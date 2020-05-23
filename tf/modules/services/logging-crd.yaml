@@ -1,0 +1,27 @@
+apiVersion: log.alibabacloud.com/v1alpha1
+kind: AliyunLogConfig
+metadata:
+  # your config name, must be unique in you k8s cluster
+  name: demo-logging-stdout
+spec:
+  # logstore name to upload log
+  logstore: k8s_log
+  # logtail config detail
+  logtailConfig:
+    # docker stdout's input type is 'plugin'
+    inputType: plugin
+    # logtail config name, should be same with [metadata.name]
+    configName: demo-logging-stdout
+    inputDetail:
+      plugin:
+        inputs:
+          -
+            # input type
+            type: service_docker_stdout
+            detail:
+              # collect stdout and stderr
+              Stdout: true
+              Stderr: true
+              # collect all container's stdout except containers with "COLLECT_STDOUT_FLAG:false" in docker env config
+              ExcludeEnv:
+                COLLECT_STDOUT_FLAG: "false"
