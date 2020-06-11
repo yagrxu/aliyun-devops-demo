@@ -30,7 +30,7 @@ resource "random_password" "ssh" {
 
 resource "alicloud_cs_managed_kubernetes" "k8s" {
   name_prefix = "demo"
-  version     = "1.14.8-aliyun.1"
+  version     = "1.16.9-aliyun.1"
 
   pod_vswitch_ids = var.pod_vswitch_ids
   service_cidr    = "192.168.0.0/16"
@@ -75,6 +75,14 @@ resource "alicloud_log_store_index" "index" {
   full_text {
     case_sensitive = true
   }
+  dynamic "field_search" {
+    for_each = var.fields
+    content {
+      name = field_search.value["name"]
+      enable_analytics = true
+    }
+  }
+
 }
 
 resource "alicloud_security_group_rule" "allow_ssh_via_vpn" {

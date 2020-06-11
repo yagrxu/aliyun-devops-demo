@@ -21,6 +21,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: demo01-service.yagr.xyz
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - port: 80
     name: http

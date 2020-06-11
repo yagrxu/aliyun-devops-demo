@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: example
+    role: alert-rules
+  name: prometheus-example-rules
+spec:
+  groups:
+  - name: ./example.rules
+    rules:
+    - alert: ExampleAlert
+      expr: sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{le="0.003"}[5m])) by (ingress) / sum(rate(nginx_ingress_controller_request_duration_seconds_count{ingress!~"jenkins|prometheus-server"}[5m])) by (ingress) < 0.95
+      for: 2m
