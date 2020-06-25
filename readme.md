@@ -59,18 +59,25 @@
 4. Solution
    - TODO
 
+## Demos
+
+01. Ingress and services working with LoadBalancer and external DNS
+02. Helm Charts
+03. Prometheus Alert Rule
+04. prometheus exporter with ServiceMonitor
+05. CloudMonitor metrics integration
+
 ## Limitations
 
-1. Currently the automation works only when you have only 1 cluster per account.
-
-2. This highly relies on a [feature](https://github.com/terraform-providers/terraform-provider-alicloud/issues/2326) to be implemented.
+TBD
 
 ## TODO list
 
 1. Alibaba Cloud Container Registry automation - waiting for ACR EE in Frankfurt
 
-
 ## Workarounds
+
+TBD
 
 ## Extras
 

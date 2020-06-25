@@ -1,5 +1,5 @@
 provider "alicloud" {
-  version    = "~> 1.81.0"
+  version    = "~> 1.88.0"
   region     = var.region
   assume_role {
     role_arn = "acs:ram::5326847730248958:role/TechnicalRole"

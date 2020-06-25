@@ -40,11 +40,12 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
   install_cloud_monitor = true
 
   worker_vswitch_ids    = var.worker_vswitch_ids
-  worker_number         = 2
+  worker_number         = 3
   worker_instance_types = var.worker_types
   worker_disk_size      = 40
   worker_disk_category  = "cloud_ssd"
   password              = local.ssh_password
+  exclude_autoscaler_nodes = true
 
   kube_config = local.kube_config_path
 
@@ -105,14 +106,38 @@ resource "alicloud_security_group_rule" "allow_rds_access" {
   cidr_ip           = "0.0.0.0/0"
 }
 
+resource "alicloud_security_group_rule" "allow_pressure_test" {
+  security_group_id = alicloud_cs_managed_kubernetes.k8s.security_group_id
+  type              = "ingress"
+  nic_type          = "intranet"
+  policy            = "accept"
+  ip_protocol       = "tcp"
+  port_range        = "8080/8080"
+  cidr_ip           = "0.0.0.0/0"
+}
+
+data "alicloud_instances" "worker" {
+  ids   = alicloud_cs_managed_kubernetes.k8s.worker_nodes.*.id
+}
 
 data "alicloud_ram_roles" "roles_ack_cluster" {
-  name_regex  = "KubernetesWorkerRole.*"
+  name_regex  = data.alicloud_instances.worker.instances[0].ram_role_name
+  policy_type = "Custom"
   depends_on = [alicloud_cs_managed_kubernetes.k8s]
 }
 
 data "alicloud_ram_policies" "kube2ram_policy" {
   name_regex = "Kube2RamStsPolicy"
+}
+
+data "alicloud_ram_policies" "autoscaler_policy" {
+  name_regex = "k8s_autoscaler_policy"
+}
+
+resource "alicloud_ram_role_policy_attachment" "attach01" {
+  policy_name = data.alicloud_ram_policies.autoscaler_policy.policies[0].name
+  policy_type = data.alicloud_ram_policies.autoscaler_policy.policies[0].type
+  role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
 }
 
 resource "alicloud_ram_role_policy_attachment" "attach" {
@@ -157,4 +182,38 @@ resource "alicloud_ram_role_policy_attachment" "external_secret_policy_attach" {
   policy_name = data.alicloud_ram_policies.external_secret_policy.policies[0].name
   policy_type = data.alicloud_ram_policies.external_secret_policy.policies[0].type
   role_name   = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
+}
+
+resource "alicloud_ess_scaling_group" "k8s_asg" {
+  min_size           = 0
+  max_size           = 5
+  scaling_group_name = "demo_asg"
+  default_cooldown   = 5
+  vswitch_ids        = var.pod_vswitch_ids
+  removal_policies   = ["OldestInstance", "OldestScalingConfiguration"]
+  depends_on         = [alicloud_cs_managed_kubernetes.k8s]
+}
+
+resource "alicloud_ess_scaling_configuration" "k8s_asc" {
+  scaling_group_id  = alicloud_ess_scaling_group.k8s_asg.id
+  image_id          = "centos_7_7_x64_20G_alibase_20200329.vhd"
+  instance_type     = "ecs.g6.xlarge"
+  security_group_id = alicloud_cs_managed_kubernetes.k8s.security_group_id
+  force_delete      = true
+  active            = true
+  enable            = true
+}
+
+resource "alicloud_cs_kubernetes_autoscaler" "k8s_autoscaler" {
+  cluster_id              = alicloud_cs_managed_kubernetes.k8s.id
+  nodepools {
+        id                = alicloud_ess_scaling_group.k8s_asg.id
+        taints            = null
+        labels            = ""
+  }
+  utilization             = "0.4"
+  cool_down_duration      = "1m"
+  defer_scale_in_duration = "1m"
+  use_ecs_ram_role_token  = true
+  depends_on         = [alicloud_cs_managed_kubernetes.k8s, alicloud_ess_scaling_configuration.k8s_asc]
 }

@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysqld1370-exporter
+  namespace: seafight-1370
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysqld-exporter
+    spec:
+      containers:
+      - name: mysqld-exporter
+        imagePullPolicy: Always
+        env:
+          - name: DATA_SOURCE_PWD
+            valueFrom:
+              secretKeyRef:
+                name: password
+                key: database-password
+          - name: DATA_SOURCE_NAME
+            value: "user:$(DATA_SOURCE_PWD)@(ip or domain:3306)/"
+        image: prom/mysqld-exporter
+        ports:
+        - containerPort: 9104
+          name: mysqld-exporter

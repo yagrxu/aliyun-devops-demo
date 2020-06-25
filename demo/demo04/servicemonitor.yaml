@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: mysqld-exporter
+    release: p
+  name: mysqld-exporter
+  namespace: my-namespace
+# namespace: monitoring
+# The Prometheus namespaces
+spec:
+  endpoints:
+  - interval: 30s
+    # The Mysqld Grafana template ID is 7362.
+    # Enter the value of the Name field for Port of Prometheus Exporter in the service.yaml file.
+    port: mysqld-exporter
+    # Enter the path exposed in Prometheus Exporter code.
+    path: /metrics
+  namespaceSelector:
+    any: true
+    # The namespace of the NGINX Demo
+  selector:
+    matchLabels:
+      app: mysqld-exporter

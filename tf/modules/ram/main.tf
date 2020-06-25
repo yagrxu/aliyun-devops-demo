@@ -181,3 +181,32 @@ resource "alicloud_ram_policy" "external_secret_policy" {
     }
     EOF
 }
+
+resource "alicloud_ram_policy" "autoscaler_policy" {
+  name                   = "k8s_autoscaler_policy"
+  description            = "enable scaling"
+  document               = <<EOF
+  {
+    "Version": "1",
+    "Statement": [
+        {
+          "Action": [
+              "ess:Describe*", 
+              "ess:CreateScalingRule", 
+              "ess:ModifyScalingGroup", 
+              "ess:RemoveInstances", 
+              "ess:ExecuteScalingRule", 
+              "ess:ModifyScalingRule", 
+              "ess:DeleteScalingRule", 
+              "ecs:DescribeInstanceTypes",
+              "ess:DetachInstances"
+          ],
+          "Resource": [
+              "*"
+          ],
+          "Effect": "Allow"
+        }
+      ]
+  }
+  EOF
+}
