@@ -18,7 +18,7 @@ provider "kubernetes" {
 resource "alicloud_slb" "slb" {
   name          = var.name
   specification = var.spec
-  vswitch_id    = "vsw-gw8w2ploqlbl2c28xu3yk"
+  vswitch_id    = "vsw-gw8toqh3gywg1oj0jz0e6"
   address_type  = var.address_type
   instance_charge_type = var.instance_charge_type
 }
@@ -74,6 +74,8 @@ resource "kubernetes_service" "test_service" {
       "external-dns.alpha.kubernetes.io/hostname" = "demo06-service.yagr.xyz"
       "service.beta.kubernetes.io/alibaba-cloud-loadbalancer-id" = alicloud_slb.slb.id
       "service.beta.kubernetes.io/alibaba-cloud-loadbalancer-force-override-listeners" = "true"
+      "service.beta.kubernetes.io/alicloud-loadbalancer-address-type" = "intranet"
+      "service.beta.kubernetes.io/alibaba-cloud-loadbalancer-external-ip-type" = "eip"
     }
   }
   spec {
@@ -90,4 +92,5 @@ resource "kubernetes_service" "test_service" {
 
     type = "LoadBalancer"
   }
+  depends_on = [alicloud_eip_association.slb-eip-asso]
 }
