@@ -75,6 +75,7 @@ resource "alicloud_log_store_index" "index" {
   logstore = alicloud_log_store.k8s_logstore.name
   full_text {
     case_sensitive = true
+    token          = ", '\";=()[]{}?@&<>/:\n\t\r"
   }
   dynamic "field_search" {
     for_each = var.fields
@@ -83,7 +84,6 @@ resource "alicloud_log_store_index" "index" {
       enable_analytics = true
     }
   }
-
 }
 
 resource "alicloud_security_group_rule" "allow_ssh_via_vpn" {
