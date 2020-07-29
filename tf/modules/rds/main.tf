@@ -6,10 +6,10 @@ locals {
 
 resource "alicloud_db_instance" "db_instance" {
   engine              = "MySQL"
-  engine_version      = "5.7"
+  engine_version      = "5.6"
   db_instance_storage_type = "local_ssd"
-  instance_type            = "rds.mysql.s2.large"
-  instance_storage    = "60"
+  instance_type            = "rds.mysql.t1.small"
+  instance_storage    = "10"
   instance_name       = "demo"
   security_ips        = var.security_ips
   vswitch_id          = var.vswitch_id
