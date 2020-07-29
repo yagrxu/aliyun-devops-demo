@@ -20,6 +20,7 @@ export TF_VAR_connection_string=`terraform output connection_string`
 # update config
 cd ../../scripts
 python3 ./update_config.py
+kubectx demo
 
 # create secret for ACR
 kubectl create secret docker-registry regcred --docker-server=registry-intl.eu-central-1.aliyuncs.com --docker-username=$ALICLOUD_ACR_USER --docker-password=$ALICLOUD_ACR_PASSWORD --docker-email=$ALICLOUD_ACR_USER

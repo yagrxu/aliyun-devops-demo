@@ -1,0 +1,7 @@
+export TF_VAR_access_key=
+export ALICLOUD_ACCESS_KEY=
+export TF_VAR_access_secret=
+export ALICLOUD_SECRET_KEY=
+export TF_VAR_region=
+export ALICLOUD_ACR_USER=
+export ALICLOUD_ACR_PASSWORD=
