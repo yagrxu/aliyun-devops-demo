@@ -53,7 +53,12 @@
     - Ingress Controller
     - Managed Prometheus
     - Logging
-    - external-dns
+    - external-dns - **note** this is not working currently and please take the command below for short period solution
+    ```bash
+    # install from bitnami helm repo
+    helm install external-dns --set provider=alibabacloud --set policy=sync --set registry=txt --set txt-owner=my-identifier --set alibabacloud.accessKeyId={yourKey} --set alibabacloud.accessKeySecret={yourSecret} --set alibabacloud.regionId={yourRegion} --set alibabacloud.zoneType=public bitnami/external-dns 
+    ## --dry-run --debug
+    ```
     - external-secret
 
 4. Solution
