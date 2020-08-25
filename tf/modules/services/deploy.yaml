@@ -53,7 +53,7 @@ spec:
       serviceAccountName: external-dns
       containers:
       - name: external-dns
-        image: registry.opensource.zalan.do/teapot/external-dns:latest
+        image: registry.cn-beijing.aliyuncs.com/xianlu/external-dns:v0.5.17-102-gc4bcada
         args:
         - --source=service
         - --source=ingress

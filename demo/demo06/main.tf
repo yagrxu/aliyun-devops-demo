@@ -1,12 +1,12 @@
 provider "alicloud" {
-  version    = "~> 1.88.0"
+  version    = "~>1.94.0"
   region     = var.region
 }
 
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"
-    prefix   = "aliyun-devops-demo06"
+    prefix   = "aliyun-devops-demo/06"
     region   = "eu-central-1"
   }
 }

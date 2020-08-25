@@ -186,7 +186,7 @@ resource "kubernetes_deployment" "alicloud_external_dns" {
         service_account_name = "external-dns"
         automount_service_account_token = true
         container {
-          image = "registry.opensource.zalan.do/teapot/external-dns:latest"
+          image = "registry.cn-beijing.aliyuncs.com/xianlu/external-dns:v0.5.17-102-gc4bcada"
           name  = "external-dns"
           args = [
             "--source=service",

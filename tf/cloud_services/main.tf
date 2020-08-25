@@ -1,25 +1,29 @@
 provider "alicloud" {
-  version    = "~> 1.88.0"
+  version    = "~>1.94.0"
   region     = var.region
   assume_role {
     role_arn = "acs:ram::5326847730248958:role/TechnicalRole"
   }
 }
+
 provider "helm" {
   version    = "~> 1.1.1"
   kubernetes {
     config_path = "~/.kube/config-demo"
   }
 }
+
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"
-    prefix   = "aliyun-devops-demo-dev"
+    prefix   = "aliyun-devops-demo/cloud-service"
     region   = "eu-central-1"
   }
 }
+
 data "alicloud_account" "current" {
 }
+
 module dev_vpc {
   source             = "../modules/vpc"
   vpc_cidr           = "10.0.0.0/8"

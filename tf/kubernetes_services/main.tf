@@ -1,5 +1,5 @@
 provider "alicloud" {
-  version    = "~> 1.88.0"
+  version    = "~> 1.94.0"
   region     = var.region
   assume_role {
     role_arn = "acs:ram::5326847730248958:role/TechnicalRole"
@@ -23,7 +23,7 @@ data "alicloud_account" "current" {
 terraform {
   backend "oss" {
     bucket   = "yagr-intl-tf-state"
-    prefix   = "aliyun-devops-demo-kubernetes-services"
+    prefix   = "aliyun-devops-demo/kubernetes-services"
     region   = "eu-central-1"
   }
 }

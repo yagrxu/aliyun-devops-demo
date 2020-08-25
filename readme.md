@@ -86,6 +86,14 @@ TBD
 
 ## Extras
 
+Debug
+
+``` bash
+export TF_LOG=DEBUG
+export TF_LOG_PATH=./terraform.log
+export DEBUG="terraform"
+```
+
 ### How to create helm chart
 
 [How to guide](https://helm.sh/docs/chart_template_guide/getting_started/)
