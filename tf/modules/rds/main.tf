@@ -1,22 +1,22 @@
 locals {
   db_names          = ["demo01", "demo02", "demo03"]
   db_usernames      = ["user_a", "user_b", "user_c"]
-  db_userprivileges = ["ReadOnly", "ReadOnly", "ReadWrite"]
+  db_userprivileges = ["DBOwner", "DBOwner", "DBOwner"]
 }
 
 resource "alicloud_db_instance" "db_instance" {
-  engine              = "MySQL"
-  engine_version      = "5.6"
-  db_instance_storage_type = "local_ssd"
-  instance_type            = "rds.mysql.t1.small"
-  instance_storage    = "10"
+  engine              = var.engine
+  engine_version      = var.engine_version
+  db_instance_storage_type = var.storage_type
+  instance_type            = var.instance_type
+  instance_storage    = "40"
   instance_name       = "demo"
   security_ips        = var.security_ips
   vswitch_id          = var.vswitch_id
   force_restart       = true
   parameters {
-    name  = "default_time_zone"
-    value = "Europe/Amsterdam"
+    name  = var.timezone_name
+    value = var.timezone_value
   }
 }
 
@@ -24,6 +24,7 @@ resource "alicloud_db_database" "db_schema" {
   count       = length(local.db_names)
   instance_id = alicloud_db_instance.db_instance.id
   name        = local.db_names[count.index]
+  character_set = "UTF8"
 }
 
 resource "alicloud_db_account" "db_account" {

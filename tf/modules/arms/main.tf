@@ -31,7 +31,27 @@ resource "helm_release" "arms" {
   # bug
   set {
     name  = "controller.operatorImage"
-    value = "registry-vpc.eu-central-1.aliyuncs.com/arms-docker-repo/arms-prom-operator:v0.1"
+    value = "registry-vpc.${var.region_id}.aliyuncs.com/arms-docker-repo/arms-prom-operator:v0.1"
+  }
+
+  set {
+    name  = "controller.nodeExportorImage"
+    value = "registry-vpc.${var.region_id}.aliyuncs.com/acs/node-exporter:v0.17.0"
+  }
+
+  set {
+    name  = "controller.armsRBACProxyImage"
+    value = "registry-vpc.${var.region_id}.aliyuncs.com/arms-docker-repo/arms-kube-rbac-proxy:v0.4.1"
+  }
+
+  set {
+    name  = "controller.kubeStateMetric"
+    value = "registry-vpc.${var.region_id}.aliyuncs.com/acs/kube-state-metrics:v1.6.0"
+  }
+
+  set {
+    name  = "controller.gpuExportorImage"
+    value = "registry-vpc.${var.region_id}.aliyuncs.com/acs/gpu-prometheus-exporter:0.1-31fa45b"
   }
 
   depends_on = [kubernetes_namespace.arms_prom]

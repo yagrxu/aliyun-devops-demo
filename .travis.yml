@@ -1,7 +1,9 @@
 os: osx
 language: generic
 before_install:
-  - brew install terraform
+  - brew install tfenv
+  - tfenv install 0.12.29
+  - tfenv use 0.12.29
   - brew install aliyun-cli
   - brew install kubectx
   - pip3 install pyyaml

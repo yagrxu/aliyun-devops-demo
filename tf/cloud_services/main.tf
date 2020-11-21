@@ -38,7 +38,7 @@ module managed_k8s {
   source             = "../modules/ack"
   pod_vswitch_ids    = module.dev_vpc.pod_vswitch_ids
   worker_vswitch_ids = module.dev_vpc.worker_vswitch_ids
-  worker_types       = ["ecs.g6.xlarge"]
+  worker_types       = [var.worker_instance_type]
   account_id         = data.alicloud_account.current.id
 }
 
@@ -47,4 +47,11 @@ module database {
   vswitch_id         = module.dev_vpc.worker_vswitch_ids[0]
   security_ips       = ["10.0.0.0/8"]
   version_ids        = ["2020.05.05", "2020.05.05", "2020.05.05"]
+  // optional parameters
+  # engine             = "PostgreSQL"
+  # instance_type      = "pg.x4.medium.2c"
+  # engine_version     = "12.0"
+  # storage_type       = "cloud_essd"
+  # timezone_name      = "timezone"
+  # timezone_value     = "Europe/Amsterdam"
 }

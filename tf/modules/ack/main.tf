@@ -3,14 +3,17 @@ locals {
     {
       "name"   = "terway-eniip",
       "config" = "",
+      "disabled" = false,
     },
     {
       "name"   = "flexvolume",
       "config" = "",
+      "disabled" = false,
     },
     {
       "name"   = "alicloud-disk-controller",
       "config" = "",
+      "disabled" = false,
     },
     {
       "name"   = "logtail-ds",
@@ -18,6 +21,12 @@ locals {
         "IngressDashboardEnabled" : "true",
         "sls_project_name" : alicloud_log_project.k8s_sls.name
       }),
+      "disabled" = false,
+    },
+    {
+      "name"     = "nginx-ingress-controller",
+      "config"   = "",
+      "disabled" = true,
     }
   ]
   ssh_password     = random_password.ssh.result
@@ -40,7 +49,7 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
   install_cloud_monitor = true
 
   worker_vswitch_ids    = var.worker_vswitch_ids
-  worker_number         = 3
+  worker_number         = 6
   worker_instance_types = var.worker_types
   worker_disk_size      = 40
   worker_disk_category  = "cloud_ssd"
@@ -52,8 +61,9 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
   dynamic "addons" {
     for_each = local.cluster_addons
     content {
-      name   = lookup(addons.value, "name", local.cluster_addons)
-      config = lookup(addons.value, "config", local.cluster_addons)
+      name     = lookup(addons.value, "name", local.cluster_addons)
+      config   = lookup(addons.value, "config", local.cluster_addons)
+      disabled = lookup(addons.value, "disabled", local.cluster_addons) == null ? false:lookup(addons.value, "disabled", local.cluster_addons)
     }
   }
 }
@@ -197,11 +207,13 @@ resource "alicloud_ess_scaling_group" "k8s_asg" {
 resource "alicloud_ess_scaling_configuration" "k8s_asc" {
   scaling_group_id  = alicloud_ess_scaling_group.k8s_asg.id
   image_id          = "centos_7_7_x64_20G_alibase_20200329.vhd"
-  instance_type     = "ecs.g6.xlarge"
+  instance_type     = "ecs.g6.large"
+  role_name         = data.alicloud_ram_roles.roles_ack_cluster.roles[0].name
   security_group_id = alicloud_cs_managed_kubernetes.k8s.security_group_id
   force_delete      = true
   active            = true
   enable            = true
+  depends_on        = [alicloud_cs_managed_kubernetes.k8s]
 }
 
 resource "alicloud_cs_kubernetes_autoscaler" "k8s_autoscaler" {

@@ -1,5 +1,7 @@
+**/.terragrunt-cache/
 local.bash
 **/.terraform/
+**/*-kubeconf
 terraform.tfstate
 terraform.tfstate.backup
 .DS_Store

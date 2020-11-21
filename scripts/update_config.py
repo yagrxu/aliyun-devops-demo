@@ -1,7 +1,7 @@
 import yaml
 import os
 
-config_file_name = '~/.kube/config-demo'
+config_file_name = os.environ.get('CONFIG_FILE_NAME', '~/.kube/config-demo')
 context_name = os.environ.get('CLUSTER_NAME', 'demo')
 user_name = context_name + "_admin"
 stream = open(os.path.expanduser(config_file_name), 'r')

@@ -1,0 +1,16 @@
+export TF_VAR_access_key=LTAI4GJDg7o9CHQRF4qGHupX
+export ALICLOUD_ACCESS_KEY=LTAI4GJDg7o9CHQRF4qGHupX
+export TF_VAR_access_secret=ropt8qL8OoqlyknOHQ2vTTBJVkqy2P
+export ALICLOUD_SECRET_KEY=ropt8qL8OoqlyknOHQ2vTTBJVkqy2P
+export TF_VAR_region=eu-central-1
+export ALICLOUD_ACR_USER=yagrxu@gmail.com
+export ALICLOUD_ACR_PASSWORD=Yagr123!
+
+
+
+
+
+# export TF_VAR_access_key=LTAI4Ff5xyVUevnyYxz15Gr3
+# export ALICLOUD_ACCESS_KEY=LTAI4Ff5xyVUevnyYxz15Gr3
+# export TF_VAR_access_secret=pP9PiLSRigi9bIp4ECBB7gRyuw3Dp1
+# export ALICLOUD_SECRET_KEY=pP9PiLSRigi9bIp4ECBB7gRyuw3Dp1
