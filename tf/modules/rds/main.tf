@@ -1,7 +1,7 @@
 locals {
   db_names          = ["demo01", "demo02", "demo03"]
   db_usernames      = ["user_a", "user_b", "user_c"]
-  db_userprivileges = ["DBOwner", "DBOwner", "DBOwner"]
+  db_userprivileges = ["ReadOnly", "ReadWrite", "DDLOnly"]
 }
 
 resource "alicloud_db_instance" "db_instance" {
